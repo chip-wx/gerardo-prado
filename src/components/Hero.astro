@@ -1,0 +1,114 @@
+<main class="hero">
+  <div class="info">
+    <h1 class="hero-title">¡Hola ✋, <span class="name">soy Jerry!</span></h1>
+    <p class="hero-desc">
+      Estudiante de Ingeniería Informática & Desarrollador Web. 
+      Apasionado por la tecnología, la lógica y la creatividad aplicada al desarrollo web. Actualmente me especializo en construir soluciones digitales que no solo funcionan, sino que también aportan valor real a quienes las utilizan.
+    </p>
+    <span class="hero-phrase">“La inteligencia artificial puede generar código, pero yo genero soluciones. ⚙️”</span>
+  </div>
+
+  <div class="img">
+    <img src="/gerardo-prado/img/pics/planet-saturn-sticker-set-vector-clipart-cosmo-setting_578669_wh860.png" alt="Planeta Saturno ilustrado">
+  </div>
+</main>
+
+<style>
+.hero {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  min-height: 80vh;
+}
+
+.info {
+  flex: 1 1 400px;
+  display: grid;
+  gap: 3rem;
+  font-size: 1.5rem;
+  color: #fff;
+  min-width: 280px;
+}
+
+.hero-title {
+  font-size: 4rem;
+  line-height: 1.1;
+}
+
+.hero-title > .name {
+  color: var(--primary-color);
+  font-family: var(--font-h);
+}
+
+.hero-phrase {
+  color: var(--secondary-color);
+}
+
+.img {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.img img {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column-reverse; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: auto;
+    padding: 3rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .info {
+    font-size: 1.2rem;
+    gap: 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .img img {
+    max-width: 300px;
+  }
+
+  .hero-phrase {
+    font-size: 1rem;
+    display: block;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .img img {
+    max-width: 220px;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+  }
+}
+</style>
