@@ -1,0 +1,78 @@
+---
+
+---
+
+<div class="hero">
+  <div class="intro">
+    Hola, soy
+  </div>
+  <div class="title-hero">Gerardo Prado</div>
+  <div class="subtitle">Desarrollador Fullstack | Futuro Ingeniero | Soporte Técnico</div>
+</div>
+
+<style>
+  .hero{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 0 2rem 0;
+    align-items: center;
+    height: 100vh;
+    background-color: #fcfeff;
+    background-image: url("https://www.transparenttextures.com/patterns/batthern.png");
+  }
+  .hero .intro{
+    font-size: 1.8rem;
+    display: inline;
+    transform: rotate(-10deg);
+    border-bottom: 3px solid #FF0B0B;
+  }
+  .hero .title-hero{
+    font-size: 5rem;
+    background: linear-gradient(to right, #FF0B0B, #FF5F25);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+  }
+  .hero .subtitle{
+    font-size: 1.3rem;
+    color: #0000009e;
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+  import SplitType from "split-type";
+
+const text = new SplitType(".intro", {
+  types: "chars"
+});
+
+gsap.from(text.chars, {
+  x: () => gsap.utils.random(-200, 200),
+  y: () => gsap.utils.random(-200, 200),
+  rotation: () => gsap.utils.random(-360, 360),
+  scale: 0,
+  opacity: 0,
+  duration: 2.5,
+  ease: "expo.out",
+  stagger: {
+    each: 0.03,
+    from: "random"
+  },
+
+});
+gsap.from(".title-hero", {
+  opacity: 0,
+  y: 50,
+  duration: 2,
+  ease: "power2.out",
+
+})
+gsap.from(".subtitle", {
+  opacity: 0,
+  duration: 1.5, 
+  delay: 1.3
+})
+</script>

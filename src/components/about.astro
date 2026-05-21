@@ -1,0 +1,140 @@
+<div class="about">
+  <div class="info-container">
+    <h2 class="title-info">Sobre mí</h2>
+
+    <p class="info">
+      Estudiante de Ingeniería Informática y desarrollador de software
+      enfocado en la eficiencia. Especialista en desarrollo web de alto
+      rendimiento. Cuento con experiencia comprobada reduciendo tiempos
+      operativos mediante el uso estratégico de IA y herramientas digitales.
+      Mi enfoque: crear software que no solo funcione, sino que sea accesible
+      y escalable para el usuario final.
+    </p>
+  </div>
+
+  <span class="slogan">
+    La IA Genera código, yo, genero soluciones
+  </span>
+</div>
+
+<style>
+  .about {
+    padding: 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0 0 2rem 0;
+    height: 80vh;
+    box-sizing: border-box;
+  }
+
+  .about .info-container {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
+    color: #000;
+  }
+
+  .about .title-info {
+    font-size: 3rem;
+    font-weight: 500;
+    margin: 0;
+    background: linear-gradient(to right, #FF0B0B, #FF5F25);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .about .info {
+    font-size: 1.5rem;
+  }
+
+  .about .slogan {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #0000007e;
+    display: inline-block;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  const about = document.querySelector(".about") as HTMLElement;
+  const title = document.querySelector(".title-info");
+  const info = document.querySelector(".info");
+  const slogan = document.querySelector(".slogan");
+
+  // Estado inicial
+  gsap.set(title, {
+    opacity: 0,
+    x: -100
+  });
+
+  gsap.set(info, {
+    opacity: 0,
+    y: 40
+  });
+
+  gsap.set(slogan, {
+    opacity: 0,
+    y: 20
+  });
+
+  function animateIn() {
+    const tl = gsap.timeline();
+
+    tl.to(title, {
+      opacity: 1,
+      x: 0,
+      duration: 1,
+      ease: "power3.out"
+    })
+    .to(info, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power3.out"
+    }, "-=0.5")
+    .to(slogan, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power3.out"
+    }, "-=0.5");
+  }
+
+  function resetAnimation() {
+    gsap.set(title, {
+      opacity: 0,
+      x: -100
+    });
+
+    gsap.set(info, {
+      opacity: 0,
+      y: 40
+    });
+
+    gsap.set(slogan, {
+      opacity: 0,
+      y: 20
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateIn();
+        } else {
+          resetAnimation();
+        }
+      });
+    },
+    {
+      threshold: 0.3
+    }
+  );
+
+  observer.observe(about);
+</script>

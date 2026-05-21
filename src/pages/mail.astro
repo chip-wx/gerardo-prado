@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro"
+---
+
+<Layout title="Contacto">
+  <div class="mail-container">
+  <h2>Contactame</h2>
+  <form action="https://formsubmit.co/9a04991b39e2189c6d47f48f1a2807e8" method="POST">
+
+  <input type="text" name="nombre" placeholder="Nombre" required>
+
+  <input type="email" name="email" placeholder="Correo" required>
+
+  <textarea name="mensaje" placeholder="Mensaje"></textarea>
+
+  <input type="hidden" name="_captcha" value="false">
+
+  <input type="hidden" name="_next" value="https://chip-wx.github.io/gerardo-prado/">
+
+  <input type="hidden" name="_subject" value="Nuevo contacto">
+
+  <button type="submit">Enviar</button>
+
+</form>
+</div>
+</Layout>
+
+<style>
+  .mail-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: 100vh;
+    background-color: #fcfeff;
+    background-image: url("https://www.transparenttextures.com/patterns/batthern.png");
+  }
+  .mail-container h2{
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 500;
+    background: linear-gradient(to right, #FF0B0B, #FF5F25);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    padding: 0;
+  }
+  .mail-container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .mail-container form input, .mail-container form textarea{
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #FF0B0B;
+    padding: 0 1rem;
+  }
+
+  .mail-container form button{
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: #FF0B0B;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+  }
+</style>

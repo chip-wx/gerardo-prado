@@ -1,0 +1,199 @@
+---
+import acw from "../assets/acw.png"
+import ideca from "../assets/ideca.png"
+import pick from "../assets/pickandsee.png"
+---
+
+<div class="proyects">
+  <h2 class="title-proyects">
+    Proyectos
+  </h2>
+
+  <div class="proyects-container">
+
+    <div class="proyect">
+      <a href="https://chip-wx.github.io/A-calmer-website/" target="_blank" class="img-link">
+        <img src={acw.src} alt="">
+      </a>
+
+      <h3>ACW</h3>
+
+      <a href="https://github.com/chip-wx/A-calmer-website" target="_blank" class="repo">
+        Repositorio
+      </a>
+    </div>
+
+    <div class="proyect">
+      <a href="https://chip-wx.github.io/ideca/" target="_blank" class="img-link">
+        <img src={ideca.src} alt="">
+      </a>
+
+      <h3>IDECA</h3>
+
+      <a href="https://github.com/chip-wx/ideca" target="_blank" class="repo">
+        Repositorio
+      </a>
+    </div>
+
+    <div class="proyect">
+      <a href="https://chip-wx.github.io/PickAndSee/" target="_blank" class="img-link">
+        <img src={pick.src} alt="">
+      </a>
+
+      <h3>Pick & See</h3>
+
+      <a href="https://github.com/chip-wx/PickAndSee" target="_blank" class="repo">
+        Repositorio
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .proyects {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0 0 2rem 0;
+    padding: 2rem;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+
+  .proyects .title-proyects {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 500;
+    background: linear-gradient(to right, #FF0B0B, #FF5F25);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    padding: 0;
+  }
+
+  .proyects-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .proyect {
+    width: 350px;
+    height: 350px;
+    border: 5px solid #FF0B0B;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    color: #000000;
+    text-decoration: none;
+  }
+
+  .proyect .img-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .proyect img {
+    width: 90%;
+  }
+
+  .proyect h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .proyect .repo {
+    background: linear-gradient(to right, #FF0B0B, #FF5F25);
+    color: #fff;
+    padding: .5rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+
+  const section = document.querySelector(".proyects") as HTMLElement;
+  const title = document.querySelector(".title-proyects");
+  const projects = document.querySelectorAll(".proyect");
+
+  // Estado inicial
+  function setInitialState() {
+
+    gsap.set(title, {
+      y: 100,
+      opacity: 0
+    });
+
+    gsap.set(projects, {
+      x: () => gsap.utils.random(-200, 200),
+      y: () => gsap.utils.random(-200, 200),
+      scale: 0,
+      opacity: 0
+    });
+
+  }
+
+  setInitialState();
+
+  // Animación
+  function animateProjects() {
+
+    const tl = gsap.timeline();
+
+    tl.to(title, {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: "power3.out"
+    });
+
+    tl.to(projects, {
+      x: 0,
+      y: 0,
+      scale: 1,
+      opacity: 1,
+      duration: 1.5,
+      ease: "expo.out",
+      stagger: {
+        each: 0.2,
+        from: "random"
+      }
+    }, "-=0.5");
+
+  }
+
+  // Reset cuando sale de pantalla
+  function resetProjects() {
+    setInitialState();
+  }
+
+  // Intersection Observer
+  const observer = new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if (entry.isIntersecting) {
+          animateProjects();
+        } else {
+          resetProjects();
+        }
+
+      });
+
+    },
+    {
+      threshold: 0.3
+    }
+  );
+
+  observer.observe(section);
+</script>

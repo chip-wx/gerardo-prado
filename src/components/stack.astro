@@ -1,0 +1,181 @@
+---
+import { stackSVGs } from "./js/stackSVG";
+---
+
+<div class="stack">
+  <h2 class="stack-title">Stack</h2>
+
+  <div class="stack-container">
+    {
+      stackSVGs.map((svg) => {
+        const Icon = svg.src;
+        return <Icon />;
+      })
+    }
+  </div>
+</div>
+
+<style>
+  .stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    height: 100vh;
+    margin: 0 0 2rem 0;
+  }
+
+  .stack h2 {
+    font-size: 3rem;
+    text-align: left;
+    font-weight: 500;
+    background: linear-gradient(to right, #FF0B0B, #FF5F25);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 0 1rem 0;
+    padding: 0;
+  }
+
+  .stack-container {
+    background-color: #efefef;
+    background-image: url("https://www.transparenttextures.com/patterns/batthern.png");
+    display: flex;
+    gap: 5rem;
+    flex-wrap: wrap;
+    max-width: 800px;
+    border-radius: 20px;
+    justify-content: center;
+    padding: 1rem;
+    align-items: center;
+    box-shadow: 0px 4px 30px 0px #5a5756ac;
+  }
+
+  svg {
+    width: 100px;
+    height: 100px;
+    color: #6D6D6D;
+    transition: all 0.2s ease-in-out;
+  }
+
+  svg:nth-child(1):hover {
+    color: rgb(11, 163, 224);
+  }
+
+  svg:nth-child(2):hover {
+    color: rgb(224, 85, 11);
+  }
+
+  svg:nth-child(3):hover {
+    color: rgb(2, 101, 207);
+  }
+
+  svg:nth-child(4):hover {
+    color: rgb(223, 216, 26);
+  }
+
+  svg:nth-child(5):hover {
+    color: rgb(11, 100, 224);
+  }
+
+  svg:nth-child(6):hover {
+    color: rgb(224, 96, 11);
+  }
+
+  svg:nth-child(7):hover {
+    color: rgb(28, 168, 12);
+  }
+
+  svg:nth-child(8):hover {
+    color: rgb(23, 25, 25);
+  }
+
+  svg:nth-child(9):hover {
+    color: rgb(10, 79, 107);
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+
+  const section = document.querySelector(".stack") as HTMLElement;
+  const title = document.querySelector(".stack-title");
+  const svgs = document.querySelectorAll(".stack-container svg");
+
+  // Estado inicial
+  function setInitialState() {
+
+    gsap.set(title, {
+      opacity: 0,
+      x: -100
+    });
+
+    gsap.set(svgs, {
+      opacity: 0,
+      scale: 0.6,
+      y: 40,
+      rotate: () => gsap.utils.random(-15, 15),
+      filter: "blur(6px)"
+    });
+
+  }
+
+  setInitialState();
+
+  // Animación
+  function animateStack() {
+
+    const tl = gsap.timeline();
+
+    // Título
+    tl.to(title, {
+      opacity: 1,
+      x: 0,
+      duration: 1,
+      ease: "power3.out"
+    });
+
+    // SVGs
+    tl.to(svgs, {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      rotate: 0,
+      filter: "blur(0px)",
+      duration: 0.9,
+      ease: "back.out(1.7)",
+      stagger: {
+        each: 0.05,
+        from: "random"
+      }
+    }, "-=0.5");
+
+  }
+
+  // Reset
+  function resetStack() {
+    setInitialState();
+  }
+
+  // Observer
+  const observer = new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if (entry.isIntersecting) {
+          animateStack();
+        } else {
+          resetStack();
+        }
+
+      });
+
+    },
+    {
+      threshold: 0.3
+    }
+  );
+
+  observer.observe(section);
+</script>

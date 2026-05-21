@@ -1,0 +1,217 @@
+---
+import Mail from "../pages/mail.astro"
+---
+
+<div class="contact-container">
+  <h2 class="contact-title">¿Hacemos Match?</h2>
+
+  <div class="contact-content">
+    <div class="img-container">
+
+      <div class="contact-buttons">
+        <a href='/gerardo-prado/cv_gerardo_prado.pdf' target="_blank">CV</a>
+        <a href='/gerardo-prado/mail'>Mail</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .contact-container {
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  .contact-title {
+    display: inline-block;
+    background: linear-gradient(to right, #FF0B0B, #FF5F25);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .contact-container .contact-title {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 500;
+    margin: 0 0 3rem 0;
+    padding: 0;
+  }
+
+  .img-container {
+    width: 300px;
+    aspect-ratio: 100 / 139;
+    overflow: hidden;
+    background-image: url(../assets/Gerardo.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    transform: rotate(-5deg);
+    border-radius: 15px;
+  }
+
+  .contact-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+  }
+
+  .contact-buttons button, .contact-buttons a {
+    padding: 1rem;
+    border-radius: 100%;
+    border: none;
+    background-color: #FFFFFF7A;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition-duration: .5s;
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  .contact-buttons a:nth-child(1) {
+    color: red;
+  }
+
+  .contact-buttons a:nth-child(1):hover {
+    background-color: red;
+    color: #fff;
+  }
+
+  .contact-buttons a:nth-child(2) {
+    color: rgb(0, 255, 0);
+  }
+
+  .contact-buttons a:nth-child(2):hover {
+    background-color: rgb(32, 192, 32);
+    color: #fff;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+import SplitType from "split-type";
+
+const section = document.querySelector(".contact-container") as HTMLElement;
+const image = document.querySelector(".img-container");
+
+// Split del título
+const textTitleContact = new SplitType(".contact-title", {
+  types: "chars"
+});
+
+// Gradiente en cada letra
+textTitleContact.chars?.forEach(char => {
+  char.style.background = "linear-gradient(to right, #FF0B0B, #FF5F25)";
+  char.style.backgroundClip = "text";
+  char.style.webkitBackgroundClip = "text";
+  char.style.color = "transparent";
+  char.style.webkitTextFillColor = "transparent";
+});
+
+// Timeline global
+let tl = gsap.timeline();
+
+// Estado inicial
+function setInitialState() {
+
+  gsap.set(textTitleContact.chars, {
+    opacity: 0,
+    y: () => gsap.utils.random(50, 100)
+  });
+
+  gsap.set(image, {
+    rotate: 45,
+    x: () => gsap.utils.random(-300, 300),
+    y: () => gsap.utils.random(-300, 300),
+    scale: 0,
+    opacity: 0
+  });
+
+}
+
+setInitialState();
+
+// Animación
+function animateContact() {
+
+  // matar timeline previa
+  if (tl) {
+    tl.kill();
+  }
+
+  tl = gsap.timeline();
+
+  // Letras
+  tl.to(textTitleContact.chars, {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    ease: "power3.out",
+    stagger: {
+      each: 0.03
+    }
+  });
+
+  // Imagen
+  tl.to(image, {
+    rotate: -5,
+    x: 0,
+    y: 0,
+    scale: 1,
+    opacity: 1,
+    duration: 1.5,
+    ease: "expo.out"
+  }, "-=0.3");
+
+}
+
+// Reset
+function resetContact() {
+
+  if (tl) {
+    tl.kill();
+  }
+
+  setInitialState();
+
+}
+
+// Observer
+const observer = new IntersectionObserver(
+  (entries) => {
+
+    entries.forEach((entry) => {
+
+      if (entry.isIntersecting) {
+        animateContact();
+      } else {
+        resetContact();
+      }
+
+    });
+
+  },
+  {
+    threshold: 0.3
+  }
+);
+
+observer.observe(section);
+</script>
