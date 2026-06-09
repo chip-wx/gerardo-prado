@@ -58,7 +58,7 @@ import pick from "../assets/pickandsee.png"
     gap: 1rem;
     margin: 0 0 2rem 0;
     padding: 2rem;
-    height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
   }
 
@@ -77,6 +77,8 @@ import pick from "../assets/pickandsee.png"
     display: flex;
     justify-content: space-between;
     gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   .proyect {
@@ -115,6 +117,7 @@ import pick from "../assets/pickandsee.png"
     border: none;
     cursor: pointer;
   }
+
 </style>
 
 <script>
@@ -124,7 +127,6 @@ import pick from "../assets/pickandsee.png"
   const title = document.querySelector(".title-proyects");
   const projects = document.querySelectorAll(".proyect");
 
-  // Estado inicial
   function setInitialState() {
 
     gsap.set(title, {
@@ -143,7 +145,6 @@ import pick from "../assets/pickandsee.png"
 
   setInitialState();
 
-  // Animación
   function animateProjects() {
 
     const tl = gsap.timeline();
@@ -170,12 +171,10 @@ import pick from "../assets/pickandsee.png"
 
   }
 
-  // Reset cuando sale de pantalla
   function resetProjects() {
     setInitialState();
   }
 
-  // Intersection Observer
   const observer = new IntersectionObserver(
     (entries) => {
 

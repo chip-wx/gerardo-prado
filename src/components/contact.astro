@@ -23,7 +23,7 @@ import Mail from "../pages/mail.astro"
 
   .contact-container {
     overflow: hidden;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -101,6 +101,12 @@ import Mail from "../pages/mail.astro"
   .contact-buttons a:nth-child(2):hover {
     background-color: rgb(32, 192, 32);
     color: #fff;
+  }
+
+  @media (max-width: 600px) {
+    .contact-container .contact-title {
+      font-size: 2.5rem;
+    }
   }
 </style>
 
